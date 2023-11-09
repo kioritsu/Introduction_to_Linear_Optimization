@@ -1,0 +1,89 @@
+\documentclass{jsarticle}
+
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hang,small,bf]{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage{ascmac}
+\usepackage[top=15truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+\usetikzlibrary{positioning}
+\captionsetup{compatibility=false}
+ 
+\begin{document}
+
+日付：4/14,15
+
+\section*{2.1 Polyhedra and convex sets(多面体と凸集合)}
+
+このセクションでは、線形計画法の幾何学を研究するために使用されるいくつかの重要な概念やconvexity(凸面体)を紹介する。 
+
+\section*{Hyperplanes,halfspaces,and polyhedra(超平面、半空間、および多面体)}
+
+\begin{itembox}[l]{定義2.1: 多面体(polyhendron)の定義}
+多面体は、$\{\bm{x}\in \mathbb{R}^n\mid \bm{A}\bm{x} \geq \bm{b}\}$で定義される集合。$\bm{A}$は$(m \times n)$行列、$\bm{b}$は$\mathbb{R}$のベクトル。
+\end{itembox}
+Sec1.1で説明したように、線形計画問題の実行可能範囲(条件)は、$\bm{A}\bm{x}\geq\bm{b}$の形式の不等式制約によって記述できるため、多面体である。 また、標準形である$\{\bm{x}\in \mathbb{R}^n\mid \bm{A}\bm{x}=\bm{b}\}$の形式の集合も多面体。\\
+ 
+\begin{itembox}[l]{定義2.2: 多面体が有限領域か無限に拡張されているかの区別をするための定義}
+集合$S$のすべての要素のすべての成分の絶対値が$K$以下になるような定数$K$が存在する場合、集合$S \subset \mathbb{R}^n$は有界である。
+\end{itembox}
+ \\
+\begin{itembox}[l]{定義2.3: 単一の線形制約によって決定される多面体の定義}
+$\bm{a}$を$\mathbb{R}$のゼロでないベクトルとし、$b$をスカラーとする。  \\
+（a）集合$\{\bm{x}\in \mathbb{R}^n\mid \bm{a}'\bm{x} = b\}$はhyperplanes(超平面)。\\
+（b）集合$\{\bm{x}\in \mathbb{R}^n\mid \bm{a}'\bm{x} \geq b\}$はhalfspaces(半空間)。
+\end{itembox}
+超平面は、対応する半空間の境界。\\
+超平面の定義におけるベクトル$\bm{a}$は、超平面自体に垂直。\\
+多面体は有限数の半空間の共通部分に等しい。 図2.1参照
+
+\newpage
+
+\section*{Convex Sets(凸集合)}
+\begin{itembox}[l]{定義2.4: 凸集合の重要な概念の定義}
+任意の$\bm{x},\bm{y}\in S,\lambda \in [0,1]$に対して、$\lambda \bm{x} +（1 –\lambda）\bm{y}\in S$とする時、集合$S\subset \mathbb{R}^n$はconvex(凸)である。
+\end{itembox}
+$\lambda \in [0,1]$の場合、$\lambda\bm{x} +（1  – \lambda）\bm{y}$は、ベクトル$\bm{x,y}$の加重平均であるため$\bm{x}$と$\bm{y}$を結ぶ線分に属す。\\
+つまり、集合内の要素のいずれか2つを結合する線分が集合に含まれている場合、その集合は凸である。 図2.2参照\\
+
+\begin{itembox}[l]{定義2.5: 有限数のベクトルの加重平均、図2.3参照}
+$\bm{x^1,...,x^k}$を$\mathbb{R}$のベクトルとし、$\lambda_1,...\lambda_k$を合計が1である非負のスカラーとする。  \par
+（a）ベクトル$\sum_{i=1}^k\lambda_i\bm{x}^i$は、ベクトル$\bm{x}^1,...,\bm{x}^k$のconvex combination(凸結合)という。\par
+（b）ベクトル$\bm{x}^1,...,\bm{x}^k$のconvex hull(凸包)は、これらのベクトルのすべての凸結合の集合である。図2.3参照
+\end{itembox}
+ \\
+\begin{itembox}[l]{定理2.1: 凸性に関連するいくつかの重要な事実}
+\begin{itemize}
+\item[（a）]凸集合の共通部分は凸である。\par
+\item[（b）]すべての多面体は凸集合である。\par
+\item[（c）]凸集合の有限数の要素の凸結合もその集合に属す。\par
+\item[（d）]有限数のベクトルの凸包は凸集合である。
+\end{itemize}
+\end{itembox}
+証明：
+\begin{itemize}
+\item[(a)] $S_i,i\in I$を凸集合とし、$I$を添え字集合、$\bm{x},\bm{y}$を共通部分$\cap_{i \in I}S_i$に属すと仮定する。$\lambda \in [0,1]$とする。どの$S_i$も凸であり、$\bm{x},\bm{y}$を含む。$\lambda \bm{x}+(1-\lambda)\bm{y} \in S_i$であるため、$S_i$の共通部分にも$\lambda \bm{x}+(1-\lambda)\bm{y}$が含まれている。つまり、$\cap_{i \in I}S_i$は凸である。
+
+\item[(b)] $\bm{a}$をベクトルとし、$b$をスカラーとする。$\bm{x}と\bm{y}$がそれぞれ$\bm{a}'\bm{x}\geq b$と$\bm{a}'\bm{y}\geq b$を満たす、つまり同じ半空間に属すると仮定する。$\lambda \in [0,1]$とする。次に、$\bm{a}'（\lambda \bm{x} +（1– \lambda）\bm{y}）\geq \lambda b +（1– \lambda）b = b$である。これは、$\lambda \bm{x} +（1– \lambda）\bm{y}$も同じ半空間に属していることを示す。 したがって、半空間は凸。 多面体は有限数の半空間の共通部分であるため、定理2.1(a)より、多面体は凸集合。
+
+\item[(c)]　凸集合の2つの要素の凸結合は、凸性の定義により、その集合に属す。帰納法的仮説として、凸集合の$k$個の要素の凸結合がその集合に属すと仮定する。 凸集合$S$の$k+1$要素$\bm{x}^1,...,\bm{x}^{k+1}$を考え、$\lambda_1,...,\lambda_{k+1}$を合計が1になる非負のスカラーとする。一般性を失わないために、$\lambda_{k+1}\neq 1$と仮定します。 すると、\\
+$\sum_{i=1}^{k+1} \lambda_{i} \mathrm{x}^{i}=\lambda_{k+1} \mathrm{x}^{k+1}+\left(1-\lambda_{k+1}\right) \sum_{i=1}^{k} \frac{\lambda_{i}}{1-\lambda_{k+1}} \mathrm{x}^{i}$\\
+ここで仮説$\sum_{i=1}^{k} \lambda_{i} \mathrm{x}^{i} /\left(1-\lambda_{k+1}\right) \in S$より、係数$\frac{\lambda_{i}}{1-\lambda_{k+1}},i=1,...,k$は非負であり、合計は1になります。
+最後に、$S$が凸であり、また、上の式より、$\sum_{i=1}^{k+1} \lambda_{i} \mathrm{x}^{i}\in S$より、証明される。
+
+\item[(d)] $S$をベクトル$\bm{x}^1,...,\bm{x}^k$の凸包とし、$\bm{y}=\sum_{i=1}^{k} \zeta_{i} \mathrm{x}^{i}, \mathbf{z}=\sum_{i=1}^{k} \theta_{i} \mathrm{x}^{i}$を$S$の2つの要素とする。ここで、$\zeta_{i} \geq 0, \theta_{i} \geq 0,\sum_{i=1}^{k} \zeta_{i}=\sum_{i=1}^{k} \theta_{i}=1$であり、 $\lambda \in [0,1]$とする。つぎに、\\
+$\lambda \mathbf{y}+(1-\lambda) \mathbf{z}=\lambda \sum_{i=1}^{k} \zeta_{i} \mathbf{x}^{i}+(1-\lambda) \sum_{i=1}^{k} \theta_{i} \mathbf{x}^{i}=\sum_{i=1}^{k}\left(\lambda \zeta_{i}+(1-\lambda) \theta_{i}\right) \mathbf{x}^{i}$\\
+係数$\lambda \zeta_{i}+(1-\lambda) \theta_{i}, i=1, \ldots, k$は負ではなく、合計が1になる。 これは、$\lambda \mathbf{y}+(1-\lambda) \mathbf{z}$が$\bm{x}^1,...,\bm{x}^k$の凸結合であり、つまり、$S$に属すことを示している。これにより、Sの凸性が示される。
+\end{itemize}
+
+\end{document}

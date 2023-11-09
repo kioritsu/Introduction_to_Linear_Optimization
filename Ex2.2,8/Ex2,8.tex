@@ -1,0 +1,135 @@
+\documentclass{jsarticle}
+
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hang,small,bf]{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage[top=15truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+\usetikzlibrary{positioning}
+\captionsetup{compatibility=false}
+ 
+\begin{document}
+
+日付：4/19
+
+\section*{Ex2.2}
+
+$f:\mathbb{R}^n \mapsto \mathbb{R}$を凸関数とし、$c$を定数とする。
+集合$S = \{\bm{x} \in \mathbb{R}^n \mid f(\bm{x})\leq c\}$は凸であることを示せ。
+\\
+\\
+関数$f$は$\mathbb{R}^n$上の凸関数である。任意の$\bm{x},\bm{y}\in S,\lambda \in [0,1]$に対して、
+\begin{equation}
+f((1-\lambda)\bm{x}+\lambda\bm{y})\leq(1-\lambda)f(\bm{x})+\lambda f(\bm{y})\leq c
+\end{equation}
+が成り立つ。したがって$(1-\lambda)\bm{x}+\lambda \bm{y} \in S$が成り立つため、集合$S$は凸集合である。
+
+
+\newpage
+
+\section*{Ex2.8}
+
+標準形の多面体$\{\bm{x}\mid \bm{Ax} = \bm{b},\bm{x}> 0\}$があり、行列$\bm{A}$の行が線形独立であると仮定する。
+$\bm{x}$を基底解とし、$J = \{ j \mid x_j \neq 0\}$とする。 
+基底により基底解$\bm{x}$が求められることと、すべての列$\bm{A}_j(j\in J)$が基底に含まれることが同値であることを示せ。
+\\
+\par
+まず、p54のProduce for constructing absic solutionより、基底により基底解を求めると、$i \neq B(1),...,B(m)$のとき$x_i=0$とするとあるため、
+基底解$\bm{x}_j(j\in J)$の時、列$\bm{A}_j(j\in J)$が基底に含まれることがわかる。
+
+反対に、$\bm{B}=[\bm{A}_j],\bm{x}_B=[x_j](j \in J)$とすると、$\bm{B}\bm{x}_B=\bm{b}$が成り立つため、
+列$\bm{A}_j(j \in J)$が基底にある時、基底解$\bm{x}$は$x_j \neq 0 (j \in J)$であることがわかる。
+
+$|J|=m$の時、
+\begin{equation}
+  \left[\begin{array}{lllllll}
+  1 & 1 & 2 & 1 & 0 & 0 & 0 \\
+  0 & 1 & 6 & 0 & 1 & 0 & 0 \\
+  1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+  0 & 1 & 0 & 0 & 0 & 0 & 1
+  \end{array}\right] \mathbf{x}=\left[\begin{array}{r}
+  8 \\
+  12 \\
+  4 \\
+  6
+  \end{array}\right]
+\end{equation}
+であり、得られている基底解が$\bm{x}=(0,0,4,0,-12,4,6)$の時、$x_j \neq 0$を満たす列は$\{\bm{A}_3,\bm{A}_5,\bm{A}_6,\bm{A}_7\}$であり、
+\begin{equation}
+  \left[\begin{array}{lllllll}
+  2 & 0 & 0 & 0 \\
+  6 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1
+  \end{array}\right] 
+  \left[\begin{array}{r}
+    4 \\
+    -12 \\
+    4 \\
+    6
+    \end{array}\right]
+  =\left[\begin{array}{r}
+  8 \\
+  12 \\
+  4 \\
+  6
+  \end{array}\right]
+\end{equation}
+が成り立つ。
+
+$|J|<m$の時、
+得られている基底解が$\bm{x}=(4,0,2,0,0,0,6)$の時、$x_j \neq 0$を満たす列は$\{\bm{A}_1,\bm{A}_3,\bm{A}_7\}$であり、
+\begin{equation}
+  \left[\begin{array}{lllllll}
+  1 & 2 & 0 \\
+  0 & 6 & 0 \\
+  1 & 0 & 0 \\
+  0 & 0 & 1
+  \end{array}\right] 
+  \left[\begin{array}{r}
+    4 \\
+    2 \\
+    6
+    \end{array}\right]
+  =\left[\begin{array}{r}
+  8 \\
+  12 \\
+  4 \\
+  6
+  \end{array}\right]
+\end{equation}
+が成り立つ。また、任意の$\bm{A}_k$をくわえても、
+\begin{equation}
+  \left[\begin{array}{lllllll}
+  1 & 2 & 0 &\mid \\
+  0 & 6 & 0 & \bm{A}_k\\
+  1 & 0 & 0 &\mid\\
+  0 & 0 & 1 &
+  \end{array}\right] 
+  \left[\begin{array}{r}
+    4 \\
+    2 \\
+    6 \\
+    0
+    \end{array}\right]
+  =\left[\begin{array}{r}
+  8 \\
+  12 \\
+  4 \\
+  6
+  \end{array}\right]
+\end{equation}
+が成り立つ。ｓ
+
+
+\end{document}

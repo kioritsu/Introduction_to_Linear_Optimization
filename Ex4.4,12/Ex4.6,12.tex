@@ -1,0 +1,125 @@
+\documentclass{jsarticle}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hang,small,bf]{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage{ascmac}
+\usepackage[top=15truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+\usetikzlibrary{positioning}
+\captionsetup{compatibility=false}
+
+\begin{document}
+
+\section*{Ex3.5}
+集合$P=\{\bm{x}\in \mathbb{R}^3 \mid x_1+x_2+x_3=1 ,\bm{x}\geq 0\}$とベクトル$\bm{x}=(0,0,1)$を考える。$\bm{x}$の実行可能方向を示せ。
+\\
+ \par
+実行可能方向$\bm{d}=(d_1,d_2,d_3)$とすると、正のスカラー$\theta$を用いて$\bm{x+\theta \bm{d}}\in P$が成り立つ必要がある。(定義3.1より)
+そのため、$(x_1+\theta d_1)+(x_2+\theta d_2)+(x_3+\theta d_3)=1$つまり、$d_1+d_2+d_3=0$、
+$(x_1+\theta d_1)\geq 0,(x_2+\theta d_2)\geq 0,(x_3+\theta d_3)\geq 0$つまり、$d_1\geq 0,d_2\geq 0,d_3\geq -1$が成り立つ集合が実行可能方向の集合。
+よって、実行可能方向の集合は$\{\bm{d}\in \mathbb{R}^3\mid d_1+d_2+d_3=0,d_1\geq 0,d_2\geq 0,d_3\geq -1\}$
+
+\section*{Ex4.1}
+下のような主問題のを考える。
+\begin{equation}
+  \begin{array}{cc}
+  \operatorname{minimize} & x_{1}-x_{2} \\
+  \text { subject to } & 2 x_{1}+3 x_{2}-x_{3}+x_{4} \leq 0 \\
+  & 3 x_{1}+x_{2}+4 x_{3}-2 x_{4} \geq 3 \\
+  &-x_{1}-x_{2}+2 x_{3}+x_{4}=6 \\
+  & x_{1} \leq 0 \\
+  & x_{2}, x_{3} \geq 0
+  \end{array}
+\end{equation}
+これに対応する双対問題を示せ。
+\\
+\par
+4.2の対応表より、
+\begin{equation}
+  \begin{array}{cc}
+  \operatorname{maximize} & 3p_{2}-6p_{3} \\
+  \text { subject to } & p_1 \leq 0 \\
+  & p_2 \geq 0\\
+  & p_3 \text{free}\\
+  & 2p_1+3p_2-p_3 \leq 1\\
+  & 3p_1+p_2-p_3 \geq -1\\
+  & -p_1+4p_2+2p_3 \leq 0\\
+  & p_1-2p_2+p_3 = 0
+  \end{array}
+\end{equation}
+
+
+\newpage
+\section*{Ex4.6}
+$\bm{A}$を$m\times n$の行列、$\bm{b}$を$\mathbb{R}^m$のベクトルとする。ここで、すべての$\bm{x}\in \mathbb{R}^n$について$\|\bm{Ax}-\bm{b}\|_\infty$
+を最小化する問題を考える。ここで$\|\cdot \|_\infty$は$\|\bm{y}\|_\infty=\max_i|y_i|$で定義されるベクトルノルムである。また、最適コストの値を$v$とする。
+\begin{itemize}
+  \item[(a)] $\sum^m_{i=1}|p_i|\leq 1,\bm{p}'\bm{A}=\bm{0}'$を満たす任意の$\mathbb{R}^m$ベクトル$\bm{p}$を考える。$\bm{p}'\bm{b}\leq v$を示せ。
+  \item[(b)] (a)で考えた形式の最適な下限を得るために、線形計画問題を立てる。
+  \begin{equation*}
+    \begin{array}{cc}
+      \text{maximize} & \bm{p}'\bm{b}\\
+      \text{subject to} & \bm{p}'\bm{A}=\bm{0}'\\
+      & \sum^m_{i=1}|p_i| \leq 1
+    \end{array}
+  \end{equation*}
+  この問題における最適コストは$v$に等しいことを示せ。
+\end{itemize}
+ \par
+
+(a)\\
+$z = \|\bm{Ax}-\bm{b}\|_\infty$とすると今回の問題は下のように書ける。
+\begin{equation}
+  \begin{array}{cc}
+    \text{minimise} & z\\
+    \text{subject to} & \bm{Ax}+z\bm{e} \geq \bm{b}\\
+    & -\bm{Ax}+z\bm{e} \geq -\bm{b}\\
+    & z \geq 0
+  \end{array}
+\end{equation}
+ここで$\bm{e}$は要素が全て1であるベクトルである。この問題の双対問題は下のように書ける。
+\begin{equation}
+  \begin{array}{cc}
+    \text{maximise} & \bm{b}'\bm{u}-\bm{b}'\bm{w}\\
+    \text{subject to} & \bm{A}'\bm{u}-\bm{A}'\bm{w} = 0\\
+    & \bm{e}'\bm{u}+\bm{e}'\bm{w} \leq 1\\
+    & \bm{u},\bm{w} \geq 0
+  \end{array}
+\end{equation}
+あるベクトル$\bm{p}$について、$p_i=s_i-t_i,|p_i|=s_i+t_i,s_i\geq 0,t_i\geq 0$
+を満たすベクトル$\bm{s},\bm{t}$を考える。
+このベクトル$\bm{p}$が$\sum^m_{i=1}|p_i|\leq 1,\bm{p}'\bm{A}=\bm{0}'$を満たすとすると、
+$\bm{e}'\bm{s}+\bm{e}'\bm{t} \leq 1,\bm{A}'\bm{s}-\bm{A}'\bm{t} = 0$
+が成り立つため、$\bm{s},\bm{t}$は双対問題の実行可能解である。
+弱双対性より、$\bm{b}'\bm{p}=\bm{b}'(\bm{s}-\bm{t})\leq v$
+が示せる。
+ \par
+(b)\\
+(b)の問題の最適コストを$v'$とする。(a)より、$\bm{v}'\leq v$。\\
+$v=0$の時、$\bm{p}=0$は実行可能解であり、その時のコストは$\bm{b}'\bm{p}=0$
+となるため、$v'\geq 0 = v$が成り立つ。\\
+$v\neq 0$の時、
+全ての$i$について、$(\bm{Ax} + z\bm{e})_i = b_i , 
+(-\bm{Ax} + z\bm{e})_i = -b_i$ のどちらか一方は成立しない。
+$(\bm{u}^*,\bm{w}^*)$が双対最適解であると仮定すると、
+相補スラック条件より、$u^*_iw^*_i = 0$である。
+そのため、$\bm{u}^*+\bm{w}^*=|\bm{u}^*-\bm{w}^*|$が成り立つ。
+
+$q=\bm{u}^*-\bm{w}^*$とすると、$q$は(b)の問題の実行可能解である。
+強双対性定理により、$\bm{b}'\bm{q}=\bm{b}'(\bm{u}^*-\bm{w}^*)=v$。
+$v'$は(b)の問題に対する最適値であるので、$v'\geq \bm{b}'\bm{q}\geq v$\\
+よって$v'=v$が成り立つ。
+
+
+
+\end{document}

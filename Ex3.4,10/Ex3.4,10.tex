@@ -1,0 +1,71 @@
+\documentclass{jsarticle}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hang,small,bf]{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage{ascmac}
+\usepackage{booktabs}
+\usepackage[top=15truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+\usetikzlibrary{positioning}
+\captionsetup{compatibility=false}
+
+\begin{document}
+5/8
+
+\section*{3.4}
+集合$P=\{\bm{x}\in \mathbb{R}^n\mid \bm{Ax}=\bm{b},\bm{Dx}\leq \bm{f},\bm{Ex}\leq \bm{g}\}$上の
+$\bm{c}'\bm{x}$を最小化する問題を考える。$\bm{D}\bm{x}^*=\bm{f}$とすべての$i$について$(\bm{E}\bm{x}^*)_i<g_i$を満たす$P$の要素を$x^*$とすると、
+点$\bm{x}^*$における実行可能方向の集合は$\{\bm{d}\in \mathbb{R}^n\mid \bm{Ad}=0,\bm{Dd}\leq 0\}$であることを示せ。
+ \\
+
+実行可能解方向$\bm{d}$が集合$\{\bm{d}\in \mathbb{R}^n\mid \bm{Ad}=0,\bm{Dd}\leq 0\}$であることの証明\par
+定義3.1より、ベクトル$\bm{d}\in \mathbb{R}^n$を$x^*$の実行可能方向の集合だとすると、正のスカラー$\theta$を用いて$\bm{x}^*+\theta \bm{d}\in P$
+が成り立つ。$\bm{x}^*$も$\bm{x}^*+\theta \bm{d}$も集合Pの要素であるため、$\bm{A}\bm{x}^*=\bm{b},\bm{A}(\bm{x}^*+\theta \bm{d})=\bm{b}$
+が成立する。$\theta > 0$より、$\bm{Ad}=0$である。同様に、
+$\bm{x}^*$は$\bm{D}\bm{x}^*= \bm{f}$が、$\bm{x}^*+\theta \bm{d}$は集合Pの要素であるため、$\bm{D}(\bm{x}^*+\theta \bm{d})\leq \bm{f}$
+が成立する。$\theta > 0$より、$\bm{Dd}\leq 0$である。
+$\bm{x}^*$は、$(\bm{E}\bm{x}^*)_i<g_i$が、$\bm{x}^*+\theta \bm{d}$は集合Pの要素であるため、$\bm{E}(\bm{x}^*+\theta \bm{d})\leq \bm{g}$
+が成立する。この条件からは$\bm{d}$の範囲を制限することはできない。
+これらより、点$\bm{x}^*$における実行可能方向の集合は$\{\bm{d}\in \mathbb{R}^n\mid \bm{Ad}=0,\bm{Dd}\leq 0\}$である。\par
+
+集合$\{\bm{d}\in \mathbb{R}^n\mid \bm{Ad}=0,\bm{Dd}\leq 0\}$であれば$\bm{d}$は点$\bm{x}^*$における実行可能方向であることの証明\par
+十分小さい正のスカラー$\theta $を考える。$\bm{Ad}=0$の条件と$\bm{x}^*$の条件$\bm{A}\bm{x}^*=\bm{b}$より、$x^*$について$\bm{A}(\bm{x}^*+\theta \bm{d})=\bm{b}$が成り立つ。
+$\bm{Dd}\leq 0$の条件と$\bm{x}^*$の条件$\bm{D}\bm{x}^*=\bm{f}$より、$x^*$について$\bm{D}(\bm{x}^*+\theta \bm{d})\leq \bm{f}$が成り立つ。
+$\bm{x}^*$の条件$(\bm{E}\bm{x}^*)_i<g_i$と$/theta$が十分小さい正のスカラーであるため、$\bm{E}(\bm{x}^*+\theta \bm{d})\leq \bm{g}$
+が成立する。$\bm{x}^*+\theta \bm{d}\in P$をみたす十分小さい正のスカラー$\theta$が存在するため、
+集合$\{\bm{d}\in \mathbb{R}^n\mid \bm{Ad}=0,\bm{Dd}\leq 0\}$であれば$\bm{d}$は点$\bm{x}^*$における実行可能方向である
+
+
+
+
+
+\section*{3.10}
+$n-m=2$ならば、どのようなピボットルールを用いても、シンプレックス法は巡回しないことを示せ。
+ \\
+
+ここで$n,m$はこれまでの条件から、$n$が変数の数、$m$が非負制約以外の制約条件の数として考えた。
+シンプレクス法を考えると、$n-m=2$から非基底変数の数が2つであるということが分かる。
+シンプレクス法の反復において、非基底変数の2つのうちのいずれか1つが前の反復で基底から外されたもの、
+新たに基底に加えられるものとして選ばれたもの、ということである。
+このことから、前の反復で基底から外されたものを新たに基底に加えられるものとして選ばなければ巡回しないことを示せる。
+
+定義3.2より、新たな非約費用は$\bar{c}_j=c_j-\bm{c}'_B\bm{B^{-1}\bm{A}_j}$で求められる。
+ここで添字$j$を基底から外す変数の添字、添字$i$を、外される基底と新たな基底の入る列とする。つまり、$x_{B(i)}=x_j$。
+ここで考えるのは基底から外された変数の非約費用なので$c_j=0$、$\bm{B}^{-1}\bm{A}_j=\bm{e}_i$は$i$の単位ベクトルと考えられる。
+新たに基底に加える変数の非約費用は負であるものを選ぶため、$\{\bm{c}_B\}_i<0$。
+つまり、$\bar{c}_j>0$が成り立つ。
+そのため、前の反復で基底から外されたものが新たに基底に加えられるものとして選ばれることはないため、
+$n-m=2$ならば、どのようなピボットルールを用いても、シンプレックス法は巡回しない。
+
+
+\end{document}

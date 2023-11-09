@@ -1,0 +1,189 @@
+\documentclass{jsarticle}
+
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hang,small,bf]{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage[top=15truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+\usetikzlibrary{positioning}
+\captionsetup{compatibility=false}
+ 
+\begin{document}
+
+日付：4/8,12
+
+\section*{1.4 Graphical representation and solution(グラフ表現と解決法)}
+
+この章では、linear programming problems(線形計画問題) について書かれている。\par
+Ex1.6 : 2変数線形計画問題\par
+\begin{equation}
+\begin{array}{cc}
+\text { minimize } & -x_{1}-x_{2} \\
+\text { subject to } & x_{1}+2 x_{2} \leq 3 \\
+& 2 x_{1}+x_{2}\leq 3 \\
+& x_{1}, x_{2} \geq 0
+\end{array}
+\end{equation}
+
+${x_1,x_2}$が実行可能な範囲をFig1.3の黒っぽい部分に図示してある。最小化したい$-x_1-x_2=z$とおき、それに対して垂直なベクトル（cost vector）$\bm{c}=(-1,-1)$とおく。実行可能範囲のコーナーである$(x_1,x_2)=(1,1)$が最適解であり、最適値は$z=-2$。\par
+
+次の例で3次元の場合を考える。
+2次元の場合と基本的に同様に考えられるが、平面を用いて考える必要がある。\par
+
+Ex1.7 : 3次元線形計画問題\par
+
+\begin{equation}
+\begin{array}{cc}
+\text { minimize } & -x_{1}-x_{2}-x_{3} \\
+\text { subject to } & 0 \leq x_{i} \leq 3 (i=1,2,3) \\
+\end{array}
+\end{equation}
+
+$x_1,x_2,x_3$が実行可能な範囲はFig1.4の立方体内である。最小化したい$-x_1-x_2-x_3=z$とおき、それに対して垂直なベクトル$\bm{c}=(-1,-1,-1)$とおく。実行可能範囲のコーナーである$(x_1,x_2,x_3)=(1,1,1)$が最適解であり、最適値は$z=-3$。\par
+
+Ex1.6,1.7は実行可能範囲が有界であり、固有の最適解を持つ例であったが、それ以外の場合をEx1.8で考える。
+
+Ex1.8 : 実行可能範囲が有界ではなく、固有の最適解を持たない例
+\begin{equation}
+\begin{array}{cc}
+\text { subject to } & x_{1}+2 x_{2} \leq 1 \\
+& x_{1}, x_{2} \geq 0
+\end{array}
+\end{equation}
+$x_1,x_2$が実行可能な範囲をFig1.3の黒っぽい部分に図示してある。\\
+\begin{itemize}
+  \item[(a)] $\text { minimize }x_{1}+x_{2} $ , $\bm{c}=(1,1)$であるため、最適解$(x_1,x_2)=(0,0)$であり、最適値は$z=0$。\\
+実行可能範囲が有界ではないが、最適解が存在する。
+  \item[(b)] $\text { minimize }x_{1} $ , $\bm{c}=(1,0)$であるため、最適解$(x_1,x_2)=(0,x_2),0 \leq x_{2} \leq 1$を満たす全てであり、最適値は$z=0$。
+  \item[(c)] $\text { minimize }x_{2} $ , $\bm{c}=(0,1)$であるため、最適解$(x_1,x_2)=(x_1,0),0 \leq x_{1} $を満たす全てであり、最適値は$z=0$。\\
+実行可能範囲が有界ではなく、最適解が複数存在する。最適解が有界であったりなかったりする。
+  \item[(d)] $\text { minimize }-x_{1}-x_{2} $ , $\bm{c}=(-1,-1)$であるため、最適解を考えると、$x_1$の値を大きくすると、$x_2$の実行可能範囲も広がる。そのため、最適値は$-\infty$。\\
+実行可能範囲が有界でないため、最適値は$-\infty$となる。
+  \item[(e)] $\text { subject to }x_{1}+x_{2} \leq 2$を条件として追加した場合、実行可能範囲が存在しないため、最適解、最適値なしとなる。 \\
+実行可能範囲が空である。
+\end{itemize}
+その他の例
+\begin{equation}
+\begin{array}{cc}
+\text { minimize } & \frac{1}{x}\\
+\text { subject to } & 0 \leq x \\
+\end{array}
+\end{equation}
+この問題では、実行可能範囲が存在しており、最適値は$-\infty$ではないが、最適解が存在しない、と言うように考えられる。
+この本の後半でこの可能性が線形計画法では決して起こらないことが分かる…？らしいです？？\par
+
+次の2章では、
+「実行可能範囲に少なくとも1つのコーナーがあり、少なくとも1つの最適解がある場合、実行可能範囲のコーナーに最適解を見つけることができる。」これが線形計画問題の一般的な特徴であることを示す。
+
+\section*{Visualizing standard form problems(標準形問題の視覚化)}
+ここでは、3次元よりも次元が大きい場合も標準形の問題を視覚化する方法について書かれている。
+まず、$(m \times n)$の行列$\bm{A}$、$n$次元のベクトル$\bm{x}$、$m$次元のベクトル$\bm{b}$を考える。この線形計画問題には$\bm{A}\bm{x}=\bm{b}$の制約がある。（$m$個の制約があるといえる。）
+
+$m \leq n$であり、$\bm{A}\bm{x}=\bm{b}$の制約が、$(n-m)$次元の上にのみxの実行範囲が存在するような制約であると仮定した場合、自身が$(n-m)$次元に立って考えると、直行する$m$次元は無視することができ、実行可能範囲は不等式制約のみで考えることができる。特に$n-m=2$の時、$n$個の不等式からなる2次元的に考えることができる。以下でその例を紹介する。
+Fig1.6
+\begin{equation}
+\begin{array}{cc}
+\text { subject to } & x_1+x_2+x_3=1 \\
+& x_1,x_2,x_3 \geq 0\\
+\end{array}
+\end{equation}
+$x_1,x_2$平面上の実行範囲にたって考えると直行する$m$次元、今回の場合$x_3$方向を無視して考えられるため、2次元的に考えることができる。
+
+\section*{1.5 Linear algebra background and notation(線形代数の背景と表記)}
+ここでは、使用する主な表記法の概要を説明する。
+\section*{Set theoretic notation (集合論表記法)}
+$S,T$はset(集合)であるとする。
+
+\begin{equation*}
+\begin{array}{cc}
+x \in S&x\text{は}S\text{の要素である。}\\
+S={x \mid x \text{satusfies} P}&\text{特性}P\text{をもつ全ての要素の集合}\\
+|S|&\text{有限集合}S\text{の個数}\\
+S\cup T&\text{和集合}\\
+S\cap T&\text{共通部分}\\
+S\setminus T&\text{差集合}\\
+S\subset T&\text{部分集合}\\
+\varnothing&\text{空集合}\\
+\exists&\text{存在して}\\
+\forall&\text{任意の}\\
+\mathbb{R}&\text{実数の集合}\\
+\text{[}a,b\text{]}=\{x\in \mathbb{R}\mid a\leq x\leq b\}&閉区間\\
+(a,b)=\{x\in \mathbb{R}\mid a< x< b\}&開区間\\
+\end{array}
+\end{equation*}
+
+\section*{Vector and matrices (ベクトルと行列)}
+\section*{Matrix inversion(行列の反転)}
+
+$(m\times n)$の行列を$\bm{A}$で表す。行列は大文字の太字で表す。
+$a_(ij)$または、$[\bm{A}]_(ij)$を使って、$i$行、$j$列の要素を取り出す。
+$\bm{x}$などの小文字の太字は列ベクトルを表す。
+
+\begin{equation*}
+\begin{array}{cc}
+\bm{0}&\text{ゼロベクトル}\\
+\bm{e}_i&\text{単位ベクトル}\\
+\bm{A}'&\text{転置行列}\\
+\bm{A}^(-1)&\text{逆ベクトル}\\
+\bm{x}'\bm{y}=\bm{y}'\bm{x}=\sum_{n}^{i=1}x_iy_i&\text{内積}\\
+|\bm{x}'\bm{y}|\leq||\bm{x}||\cdot||\bm{y}||&シュワルツの不等式
+\end{array}
+\end{equation*}
+
+$\bm{x}^1,...,\bm{x}^k\in \mathbb{R}$であり、$\sum_{k}^{k=1}a_kx^k=\bm{0}$を満たす$0$ではない実数$\bm{a}^1,...,\bm{a}^k$が存在するとき、linearly dependent(線形従属)、それ以外をlinearly independent(線形独立)という。
+定理1.2 $\bm{A}$が正方行列のとき、次の場合は同等である。
+\begin{itemize}
+\item[(a)] $\bm{A}$が逆行列を持つ。
+\item[(b)] $\bm{A}'$が逆行列を持つ。
+\item[(c)] $det(\bm{A})\neq0$
+\item[(d)] $\bm{A}$の行が線形独立
+\item[(e)] $\bm{A}$の列が線形独立
+\item[(f)] 全ての$\bm{b}$にたいして、$\bm{A}\bm{x}=\bm{b}$が一つの解を持つ。
+\item[(e)] $\bm{A}\bm{x}=\bm{b}$が一つの解を持つような$\bm{b}$が存在する。
+\end{itemize}
+
+\section*{Subspaces and bases(部分空間と基底)}
+
+$\mathbb{R}$の空でない部分集合$S$は、$x,y\in S,a,b\in \mathbb{R}$であり、$ax+by\in S$ならば、$\mathbb{R}$のsubspace(部分空間)と呼ぶ。さらに、$S\neq\mathbb{R}$のとき$S$をproper(適切な)部分空間と呼ぶ。
+$\mathbb{R}$の部分空間$S\neq{0}$について、$S$の基底は線形独立なベクトルからなる集合である。このベクトルの数を部分空間のdimension（次元）と呼ぶ。
+
+$S$を$\mathbb{R}$の適切な空間であると考えた時、$S$に直交する$\bm{a}\neq0$が存在する。つまり、$x\in S$である$x$ごとに、$\bm{a}'x=0$を満たす$\bm{a}$が存在する。$S$の次元が$m<n$のとき、$S$に直交する$(n-m)$線形独立ベクトルが存在する。
+
+定理1.3　$\bm{x}^1,...\bm{x}^K$のスパン$S$の次元が$m$であると仮定
+\begin{itemize}
+%\item A
+\item[(a)] $S$の基底は$\bm{x}^1,...\bm{x}^K$の次元である。
+\item[(b)] もし、$k\leq m$であり、$\bm{x}^1,...\bm{x}^k$が線形独立であるとき、$S$の基底は$k$である。
+\end{itemize}
+
+$\bm{A}$を考える。独立な行または列の数を$rank(\bm{A})$という。
+$rank(\bm{A})=min\{m,n\}$のとき、full rankという。
+
+\section*{Affine Subspaces(アフィン部分空間)}
+$S_0$を$\mathbb{R}$の部分空間とし、また、ベクトル$\bm{x}$を考える。
+\begin{equation}
+S=S_{0}+\mathrm{x}^{0}=\left\{\mathrm{x}+\mathrm{x}^{0} \mid \mathrm{x} \in S_{0}\right\}
+\end{equation}
+で$S$を定義すると、$S$は必ずしも$\bm{0}$を含まないため、アフィン部分空間とよぶ。$S$の次元は$S_0$の次元と等しい。\par
+例１:$\mathbb{R}$のいくつかのベクトル$\bm{x}^1,...\bm{x}^k$と、$x^{0}+\lambda_{1} x^{1}+\cdots+\lambda_{k} x^{k}$を満たす全てのベクトルの集合$S$を考える。ここで、$\bm{\lambda}^1,...\bm{\lambda}^k$は任意のスカラー。 
+この場合、$S_0$はベクトル$\bm{x}^1,...\bm{x}^k$のスパン、$S$はアフィン部分空間である。 
+ベクトル$\bm{x}^1,...\bm{x}^k$が線形独立である場合、それらのスパンの次元は$k$であり、アフィン部分空間$S$の次元も$k$。\par
+例2:$(m\times n)$の行列$\bm{A}$とベクトル$\bm{b}\in \mathbb{R}$を考える。空ではない集合$S=\left\{\mathrm{x} \in \Re^{n} \mid \mathbf{A x}=\mathbf{b}\right\}$と定義する。
+$\bm{A}\bm{x}^0=\bm{b}$となるように$\bm{x}^0$を固定する。
+任意のベクトル$\bm{x}$は、$\bm{Ax}=\bm{b}=\bm{Ax}^0$もしくは$\bm{A}(\bm{x}-\bm{x}^0)=\bm{0}$のとき、集合$S$に属す。
+つまり、$x-x^0$が部分空間$S=\left\{y \mid \mathbf{A y}=\mathbf{0}\right\}$に属すとき、$x\in S$である。
+$S={y+x^0\mid y \in S_0}$は$\mathbb{R}$のアフィン部分空間である。
+
+
+
+\end{document}

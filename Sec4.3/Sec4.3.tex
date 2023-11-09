@@ -1,0 +1,352 @@
+\documentclass{jsarticle}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage[hang,small,bf]{caption}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage{ascmac}
+\usepackage[top=15truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+\usetikzlibrary{positioning}
+\captionsetup{compatibility=false}
+
+\begin{document}
+ (5/14)
+\section*{4.3 The duality theorem}
+Sec4.1で標準形の問題では、任意の双対解のコスト$g(\bm{p})$が最適コストの下界であることを示した。
+ここで、この性質が一般に成り立つことを示す。
+
+\begin{itembox}[l]{定理4.3:弱双対性}
+  $\bm{x}$が主問題の実行可能解であり、$\bm{p}$が双対問題の実行可能解の時、
+  \begin{equation}
+    \bm{p}'\bm{b} \leq \bm{c}'\bm{x}
+  \end{equation}
+  が成り立つ。
+\end{itembox}
+
+\begin{proof}
+任意のベクトル $\bm{x}$ と $\bm{p}$ に対して、
+\begin{equation}
+  \begin{array}{l}
+  u_{i}=p_{i}\left(\mathbf{a}_{i}^{\prime} \mathbf{x}-b_{i}\right) \\
+  v_{j}=\left(c_{j}-\mathbf{p}^{\prime} \mathbf{A}_{j}\right) x_{j}
+  \end{array}
+\end{equation}
+と定義する。$\bm{x}$ と $\bm{p}$がそれぞれ主問題でも双対問題でも実行可能であるとする。
+双対問題の定義から、$p_j$の符号は$\bm{a}'\bm{x}-b_i$の符号と同じであり、$c_j- \bm{p}'\bm{A}_j$の符号は $x_j$ の符号と同じでなければならない。
+\begin{equation}
+  u_i\geq 0,v_j\geq 0,\forall i,j
+\end{equation}
+であり、
+\begin{equation}
+  \begin{array}{l}
+  \sum_{i} u_{i}=\mathbf{p}^{\prime} \mathbf{A} \mathbf{x}-\mathbf{p}^{\prime} \mathbf{b} \\
+  \sum_{j} v_{j}=\mathbf{c}^{\prime} \mathbf{x}-\mathbf{p}^{\prime} \mathbf{A} \mathbf{x}
+  \end{array}
+\end{equation}
+が成り立つ。
+この二つの等式と、$u_i, v_j$の非負性より、
+\begin{equation}
+  0 \leq \sum_{i} u_{i}+\sum_{j} v_{j}=\mathbf{c}^{\prime} \mathbf{x}-\mathbf{p}^{\prime} \mathrm{b}
+\end{equation}
+が成り立つ。
+\end{proof}
+
+弱双対定理は最適解にとても近いわけではないが、主問題と双対問題との関係について有用な情報を与える。例えば、次のような系4.1,4.2が導かれる。
+
+\begin{itembox}[l]{系4.1}
+  \begin{itemize}
+    \item[(a)] 主問題の最適コストが$-\infty$であれば、双対問題は実行不可能である。
+    \item[(b)] 双対問題の最適コストが $+\infty$ である場合、主問題は実行不可能である。
+  \end{itemize}
+\end{itembox}
+
+\begin{proof}
+  主問題の最適コストが$-\infty$であり、双対問題に実行可能解$\bm{p}$があるとする。
+  弱双対性により、$\bm{p}$は全ての主問題の実行可能解$\bm{x}$に対して$\bm{p}'\bm{b}\leq \bm{c}'\bm{x}$を満たす。
+  全ての主問題実行可能解$\bm{x}$に対する最小値をとると、$\bm{p}'\bm{b}\leq -\infty$である。
+  これは不可能であり、双対問題が実現可能な解を持つことができないことを示すため、(a)が成立。
+  (b)も同様に導かれる。
+\end{proof}
+
+\begin{itembox}[l]{系4.2}
+  主問題の解と双対問題の解をそれぞれ$\bm{x}$と$\bm{p}$とし、$\bm{p}'\bm{b} = \bm{c}'\bm{x}$が成り立つと仮定すると、
+  $\bm{x}$と$\bm{p}$はそれぞれ主問題と双対問題の最適解となる。
+\end{itembox}
+
+\begin{proof}
+  系4.2の仮定が成り立つ$\bm{x}$と$\bm{p}$を考える。すべての主問題実行可能解$\bm{y}$に対して、
+  弱双対性定理により$\bm{p}'\bm{b}=\bm{c}'\bm{x}\leq \bm{c}'\bm{y}$となり、$\bm{x}$が最適解であることが分かる。
+  $\bm{p}$の最適性も同様に導かれる。
+\end{proof}
+
+\newpage
+
+\begin{itembox}[l]{定理4.4:強双対性}
+  ある線形計画問題が最適解を持つ場合、その双対問題もまた最適解を持ち、それぞれの最適コストが等しい。
+\end{itembox}
+
+\begin{proof}
+  標準形の問題を考える。
+  \begin{equation}
+    \begin{array}{rr}
+    \operatorname{minimize} & \mathbf{c}^{\prime} \mathbf{x} \\
+    \text { subject to } & \mathbf{A x}=\mathbf{b} \\
+    & \mathbf{x} \geq \mathbf{0}
+    \end{array}
+  \end{equation}
+  ここで、$\bm{A}$の行は線形独立であり、最適解が存在すると仮定する。この問題に対してシンプレックス法を適用する。
+  辞書的ピボット法則などを用いて巡回を回避すると、シンプレックス法は最適解$\bm{x}$と最適基底$\bm{B}$で終了する。
+  最適基底に対応する基底変数を$\bm{x}_B=\bm{B}^{-1}\bm{b}$とする。
+  シンプレックス法が終了するとき、非約費用は非負でなければならず、$\bm{c}'_B$を基底変数のコストのベクトルとすると、
+  \begin{equation}
+    \mathbf{c}^{\prime}-\mathbf{c}_{B}^{\prime} \mathbf{B}^{-1} \mathbf{A} \geq \mathbf{0}
+  \end{equation}
+  が成り立つ。ここで、$\bm{p}' = \bm{c}'_B\bm{B}^{-1}$ としてベクトル$\bm{p}$を定義する。
+  すると、$\bm{p}'\bm{A} \leq \bm{c}'$となり、$\bm{p}$は双対問題
+  \begin{equation}
+    \begin{array}{cc}
+    \operatorname{maximize} & \mathbf{p}^{\prime} \mathbf{b} \\
+    \text { subject to } & \mathbf{p'A}\leq \mathbf{c}^{\prime} \\
+    \end{array}
+  \end{equation}
+  の実行可能解であることが分かる。加えて、
+  \begin{equation}
+    \mathbf{p}^{\prime} \mathbf{b}=\mathbf{c}_{B}^{\prime} \mathbf{B}^{-1} \mathbf{b}=\mathbf{c}_{B}^{\prime} \mathbf{x}_{B}=\mathbf{c}^{\prime} \mathbf{x}
+  \end{equation}
+  よって、$\bm{p}$は双対問題の最適解であり(Corollary 4.2より)、主問題と、その双対問題の最適コストが等しいことが分かる。
+  
+  最適解を持つ一般的な線形計画問題$\Pi_1$を扱う場合、まず、同じ最適コストを持ち、
+  行列$\bm{A}$の行が線形独立である等価な標準形式の問題$\Pi_2$,に変換する。
+  $\Pi_1,\Pi_2$の双対をそれぞれ$D_1,D_2$とする。定理4.2により、双対問題$D_1$および$D_2$は同じ最適コストを持つ。
+  $\Pi_2$ と $D_2$ が同じ最適コストであることは既に証明されているため、$\Pi_1$ と $D_1$ は同じ最適コストを持つ。(Fig4.1参照)
+\end{proof}
+先ほどの証明は、双対問題の最適解が標準形の主問題に適用されたシンプレックス法の副産物として得られることを示している。
+これは、シンプレックス法が終了することが保証されていることを前提にしており、
+つまり、巡回を防ぐピボットルールの存在を前提としている。
+双対性定理の別角度からの導出、幾何学的でアルゴリズムに依存しない見方での証明法をSec4.7説明する。
+しかし、この時点で幾何学的証明の内容のほとんどを伝える図を示す。
+
+Ex4.4\par 
+$\bm{a}'_i\bm{x} \geq b_i$ の形の不等式制約で定義された多面体内に位置するように制約された固体球を考える。(Fig4.2参照) 
+重力の影響下に置いておくと、この球は多面体の最も低い角$\bm{x}^*$で平衡に達する。この角が下で示す問題の最適解である。
+\begin{equation}
+  \begin{array}{cc}
+  \operatorname{minimize} & \mathbf{c}^{\prime} \mathbf{x} \\
+  \text { subject to } & \bm{a}'_i\bm{x} \geq b_i\;, \forall i\\
+  \end{array}
+\end{equation}
+ここで、$\bm{c}$は上向きの垂直ベクトルである。
+平衡状態において、重力は多面体の「壁」がボールに及ぼす力と相殺される。
+「壁」がボールに及ぼす力は壁に垂直、つまりベクトル$\bm{a}_i$と同一方向にある。
+ある非負の係数 $p_i$ に対して、$\bm{c} =\sum_i p_i\bm{a}_i$ で表せる。
+特に、ベクトル $\bm{p}$ は双対問題
+\begin{equation}
+  \begin{array}{cc}
+  \operatorname{maximize} & \mathbf{p}^{\prime} \mathbf{b} \\
+  \text { subject to } & \mathbf{p'A}= \mathbf{c}^{\prime} \\
+  & \bm{p}\geq 0\\
+  \end{array}
+\end{equation}
+の実行可能解であるといえる。
+
+力は球に接する壁からのみ与えられることを考えると、$\bm{a}'_i\bm{x}^*>b_i$の時は$p_i=0$でなければならない。
+その結果、すべての$i$について$p_i(b_i - \bm{a}'_i\bm{x}^*)=0$となる。
+したがって、$\mathbf{p}^{\prime} \mathbf{b}=\sum_{i} p_{i} b_{i}=\sum_{i} p_{i} \mathbf{a}_{i}^{\prime} \mathbf{x}^{*}=\mathbf{c}^{\prime} \mathbf{x}^{*}$が得られる。
+(Corollary 4.2より)$\bm{p}$ は双対問題の最適解であり、主問題と、その双対問題の最適コストが等しいことが分かる。
+
+\newpage
+線形計画問題では、次の3種類に分けられる。
+\begin{itemize}
+  \item[(a)] 最適解が存在する。
+  \item[(b)] 問題が「unbounded(無制限?)」である。最適コストは $-\infty$（最小化問題の時）、または $+\infty$（最大化問題の時）である。
+  \item[(c)] 実行不可能な問題である。
+\end{itemize}
+
+これにより、Table4.2に示すように、主問題と双対問題の組み合わせが9通り考えられる。
+強双対性定理により、一方の問題が最適解を持つなら、他方の問題も最適解を持つ。(定理4.4)
+弱双対性定理により、一方の問題の最適コストが無限の場合、他方は実行不可能でなければならない。(系4.1)
+これにより、表4.2の両方"Infeasible"の項目以外を埋めることができる。
+
+両方の問題が実行不可能"Infeasible"なケースは実際に起こり得ることを次の例で示す。
+実行不可能な主問題
+\begin{equation}
+  \begin{array}{cc}
+  \operatorname{minimize} & x_{1}+2 x_{2} \\
+  \text { subject to } & x_{1}+x_{2}=1 \\
+  & 2 x_{1}+2 x_{2}=3 \\
+  \end{array}
+\end{equation}
+を考える。
+その双対問題は
+\begin{equation}
+  \begin{array}{cc}
+  \text { maximize } & p_{1}+3 p_{2} \\
+  \text { subject to } & p_{1}+2 p_{2}=1 \\
+  & p_{1}+2 p_{2}=2
+  \end{array}
+  \end{equation}
+であり、これも実行不可能である。
+
+主問題と双対問題の間にはClarkの定理というもう一つ興味深い関係がある。
+これは、両方の問題が実行不可能でない限り、
+少なくともどちらか一方は無限の実行可能集合を持たなければならない、というものである。(練習問題4.21)
+
+\newpage
+
+\section*{Complementary slackness}
+
+主問題と双対問題の最適解の重要な関係は、(Complementary slackness)相補スラック条件によって示される。
+\begin{itembox}[l]{定理4.5:相補スラック条件}
+  主問題および双対問題の実行可能解をそれぞれ $\bm{x},\bm{p}$ とする．
+  ベクトル $\bm{x},\bm{p}$がそれぞれの問題に対する最適解であることと
+  \begin{equation}
+    \begin{array}{r}
+    p_{i}\left(\mathbf{a}_{i}^{\prime} \mathrm{x}-b_{i}\right)=0 \:,\forall i\\
+    \left(c_{j}-\mathbf{p}^{\prime} \mathbf{A}_{j}\right) x_{j}=0\:,\forall j
+    \end{array}
+  \end{equation}
+  が成り立つことは同値である。
+\end{itembox}
+\begin{proof}
+  定理4.3の証明において、 $u_i = p_i(\bm{a}'_i\bm{x}-b_i)$ と $v_j = (c_j-\bm{p}'\bm{A}_j)x_j$ を定義し、 
+  $\bm{x}$の主実行可能解と$\bm{p}$の双対実行可能解に対して、 すべての$i$と$j$に対して$u_i\geq 0$と$v_j\geq 0$であることが分かっている。
+  さらに、$\mathbf{c}^{\prime} \mathbf{x}-\mathbf{p}^{\prime} \mathrm{b}=\sum_{i} u_{i}+\sum_{j} v_{j}$を示した。
+  強双対性定理により、$\bm{x}$と$\bm{p}$が最適であれば、$\bm{c}'\bm{x} = \bm{p}'\bm{b}$ となり、
+  すべての$i , j$に対して$u_i = v_j = 0$を意味する。反対に、$u_i = v_j = 0$ がすべての $i , j$ について成り立つなら、
+  $\bm{c}'\bm{x} = \bm{p}'\bm{b}$ であり、系4.2より $\bm{x}$ と $\bm{p}$ が最適であることがわかる。
+\end{proof}
+
+最初の相補スラック条件は、標準形の問題に対するすべての実行可能解によって自動的に満たされる。
+もし主問題が標準形でなく、$\bm{a}'_i\bm{x} \geq b_i$ のような制約がある場合、
+対応する相補スラック条件は、制約がアクティブでない限り双対変数$p_i$がゼロであることをしめす。
+直感的な説明として、最適解でアクティブでない制約は最適コストに影響を与えることなく問題から取り除くことができ、
+そのような制約にゼロでない価値を付ける意味がないということ。
+また、例題4.4との類似性に注意、そこでは「(壁から受ける)力」はアクティブな制約によってのみ考えられた。
+
+
+主問題が標準形で、非縮退最適基本実行可能解が知られている場合、相補スラック条件は双対問題の解を一意に決定する。これを次の例で説明する。\\
+Ex4.6\par
+次の主問題とその双対問題を考える。
+\begin{equation}
+  \begin{array}{rrrr}
+  \operatorname{minimize} & 13 x_{1}+10 x_{2}+6 x_{3} & \text { maximize } & 8 p_{1}+3 p_{2} \\
+  \text { subject to } & 5 x_{1}+x_{2}+3 x_{3}=8 & \text { subject to }& 5 p_{1}+3 p_{2} \leq 13 \\
+  & 3 x_{1}+x_{2} =3 && p_{1}+p_{2} \leq 10 \\
+  & x_{1}, x_{2}, x_{3} \geq 0 && 3 p_{1}  \leq 6
+  \end{array}
+\end{equation}
+$\bm{x}^*=(1,0,1)$は主問題の非縮退最適基本実行可能解である。この場合について相補スラック条件を適用して考えると、
+条件$p_{i}\left(\mathbf{a}_{i}^{\prime} \mathrm{x}-b_{i}\right)=0$は主問題が標準形のため自動的にそれぞれの$i$に対して成り立つ。
+条件$\left(c_{j}-\mathbf{p}^{\prime} \mathbf{A}_{j}\right) x_{j}=0$は$j=2$については$x^*_2=0$より、成り立つことが分かる。
+しかし、$x^*_1,x^*_3 > 0$なので、$5p_1+3p_2=13,3p_1=6$を考え、これを解くと$p_1=2,p_2=1$が得られる。
+この双対実行可能解のコストは19であり、$x^*$のコストに一致する。
+よって、$x^*$が最適解であることが分かる。
+
+この例を一般化する。$x^*$ が標準形の主問題の非縮退最適基本実行可能解における基底変数であるとする。 このとき、相補スラック条件
+$\left(c_{j}-\mathbf{p}^{\prime} \mathbf{A}_{j}\right) x_{j}=0$はすべての$j$について$\bm{p}'\bm{A}_j = c_j$ が得られる。
+$A_j$ は線形独立なので、$\bm{p}$ の方程式系が得られ、その方程式は
+は一意の解、すなわち、$\bm{p}' = \bm{c}'_B\bm{B}^{-1}$ を持つ。
+標準形でない問題についても同様の結論が得られる（練習問題4.12）。
+一方、主問題の最適解が縮退している場合、相補スラック条件は双対問題の最適解を決定するのに役立つとは限らない（練習問題4.17）。
+
+最後に、主問題の制約が$\bm{Ax}\geq \bm{b}, \bm{x} \geq 0$ の形で、最適解を持つ場合について説明する。
+主問題と双対問題には 対応する制約が他方の問題で有効である場合に限り、相補スラック条件を満たす最適解が存在することとなる。（練習問題4.20）
+この結果は離散最適化においていくつかの興味深い応用があるが、この本の範囲外である。
+
+\newpage
+
+\section*{A geometric view}
+ここでは、双対実行可能集合を描くことなく、主ベクトルと双対ベクトルのペアを可視化する幾何学的な見方を考える。
+主問題は
+\begin{equation}
+  \begin{array}{cc}
+  \operatorname{minimize} & \mathbf{c}^{\prime} \mathbf{x} \\
+  \text { subject to } & \mathbf{a}'_i \mathbf{x}\geq b_i\:,i=1,\dots,m 
+  \end{array}
+\end{equation}
+ここで、$\bm{x}$ の次元は $n$ に等しく、ベクトル $\bm{a}_i$ は $\mathbb{R}^n$ に広がると仮定する。
+対応する双対問題は
+\begin{equation}
+  \begin{array}{rr}
+  \operatorname{maximize} & \mathbf{p}^{\prime} \mathbf{b} \\
+  \text { subject to } & \sum^m_{i=1}p_i\bm{a}_i=\bm{c}\\
+  & \mathbf{p} \geq \mathbf{0}
+  \end{array}
+\end{equation}
+である。
+$I$ を $\{1,\dots ,m\}$ の部分集合でカージナル数(集合の濃度、大きさ) $n$ とし、ベクトル $\bm{a}_i, i\in I$が線形独立であるとする。
+システム$\bm{a}'_i\bm{x} = b_i,i\in I$は、主問題の基本解である$\bm{x}^I$で示される一意の解を持つ。(Sec2.2の定義2.9参照)
+ここで、$\bm{x}^I$は縮退していない、つまり、$i\notin I$に対して$\bm{a}'_i\bm{x}^I\neq b_i$であると仮定する。
+
+$\bm{p}\in \mathbb{R}^n$ を双対ベクトル(実行可能である必要はない)とし、$\bm{x}^I$ と $\bm{p}$ が
+主問題と双対問題の最適解となるために必要なことを考ええる。
+必要なのは
+\begin{equation*}
+\begin{array}{ccc}
+  \text{(a)} & \bm{a}'_i\bm{x}^I \geq b_i , \forall i & \text{(primalfeasibility)}\\
+  \text{(b)} & p_i=0, \forall i \notin I & \text{(complementary slackness)}\\
+  \text{(c)} & \sum^m_{i=1}p_i\bm{a}_i=\bm{c} & \text{(dual feasibility)}\\
+  \text{(d)} & \bm{p} \geq \bm{0} & \text{(dual feasibility)}
+\end{array}
+\end{equation*}
+である。
+相補スラック条件(b)より条件(c)は、
+\begin{equation}
+  \sum_{i\in I}p_i\bm{a}_i=\bm{c}
+\end{equation}
+と表せる。
+ベクトル$\bm{a}_i$は線形独立なので、式(18)は一意な解を持ち、
+それを$\bm{p}^I$とする。
+実際、ベクトル$\bm{a}_i, i\in I$は（標準形の）双対問題の基底を形成し、
+$\bm{p}^I$は関連する基本解であることは分かる。
+ベクトル$\bm{p}^I$が双対問題で実行可能であるためには、
+それが非負であることも必要である。
+相補スラック条件(b)が実行されると、
+得られる双対ベクトル$\bm{p}^I$の実行可能性は、
+$\bm{c}$がアクティブな主制約に関連するベクトル$\bm{a}_i,i \in I$の
+非負の線形結合であることと等価だと結論付けられる。
+これにより、双対実行可能集合を描くことなく、
+双対実行可能性を視覚化することができる。(Fig4.3参照)
+
+2つの変数5つの不等式制約を持つ主問題を考える。($n=2,m=5$)
+ベクトル$a_i$のうちの2つは線形独立。
+$I\in \{1,2,3,4,5\}$のうち2要素は主問題と双対問題の基本解$\bm{x}^I,\bm{p}^I$を決める。\\
+$I\in \{1,2\}$の時(点A)、$\bm{x}^I$は実行不可能解、
+$\bm{p}^I$はベクトル$\bm{a}_1,\bm{a}_2$の非負の線形結合で
+$\bm{c}$を表現できないため、実行不可能解。\\
+$I\in \{1,3\}$の時(点B)、$\bm{x}^I$は実行可能解、
+$\bm{p}^I$はベクトル$\bm{a}_1,\bm{a}_3$の非負の線形結合で
+$\bm{c}$を表現できないため、実行不可能解。\\
+$I\in \{1,4\}$の時(点C)、$\bm{x}^I$は実行可能解、
+$\bm{p}^I$はベクトル$\bm{a}_1,\bm{a}_4$の非負の線形結合で
+$\bm{c}$を表現できるため、実行可能解。特に最適解\\
+$I\in \{1,5\}$の時(点D)、$\bm{x}^I$は実行不可能解、
+$\bm{p}^I$はベクトル$\bm{a}_1,\bm{a}_5$の非負の線形結合で
+$\bm{c}$を表現できるため、実行可能解。\\
+
+$\bm{x}^*$が主制約の縮退した基本解である場合、
+$\bm{x}^I =\bm{x}^*$となるような部分集合$I$が複数存在する可能性がある。
+$I$の選択を変え、系 $\sum_{i\in I}p_i\bm{a}_i=\bm{c}$ を解くと、
+いくつかの双対基本解 $\bm{p}^I$ が得られます。
+そして、それのうちのいくつかは双対実行可能であり、
+いくつかはそうでないということがあり得る。
+それでも、$\bm{p}^I$が双対実行可能（すなわち、すべての$p_i$が非負）であり、
+$\bm{x}^*$が主実行可能であれば、相補スラック条件を強制しているので、
+それらは両方とも最適であり、定理4.5が適用される。(Fig4.4参照)
+
+ベクトル$\bm{x}^*$は縮退した基本実行可能解。\\
+$I\in \{1,2\}$の時、$\bm{p}^I$はベクトル$\bm{a}_1,\bm{a}_2$の非負の線形結合で
+$\bm{c}$を表現できないため、実行不可能解。
+$I\in \{1,3\} \text{or} \{2,3\}$の時$\bm{p}^I$は実行可能であり、最適。
+
+\end{document}
